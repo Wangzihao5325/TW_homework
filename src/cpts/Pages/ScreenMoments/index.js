@@ -17,7 +17,7 @@ const ScreenMoments = () => {
         data={momentsList}
         renderItem={({ item, index }) => {
           return (
-            <Section />
+            <Section moment={item} key={index} />
           );
         }}
       />

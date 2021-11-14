@@ -9,65 +9,36 @@ import {
 import useViewModel from './view.model';
 import styles from './style';
 
+const DEFAULT_NAME = '匿名用户';
+const DEFAULT_AVATER = 'https://tw-mobile-xian.github.io/moments-data/images/user/avatar.png';
 
-const mock_data = [
-  {
-    "url": "https://tw-mobile-xian.github.io/moments-data/images/tweets/001.jpeg"
-  },
-  {
-    "url": "https://tw-mobile-xian.github.io/moments-data/images/tweets/002.jpeg"
-  },
-  {
-    "url": "https://tw-mobile-xian.github.io/moments-data/images/tweets/003.jpeg"
-  }
-];
-
-const comments_mock_data = [
-  {
-    "content": "Good.",
-    "sender": {
-      "username": "leihuang",
-      "nick": "Lei Huang",
-      "avatar": "https://tw-mobile-xian.github.io/moments-data/images/user/avatar/002.jpeg"
-    }
-  },
-  {
-    "content": "Like it too",
-    "sender": {
-      "username": "weidong",
-      "nick": "WeiDong Gu",
-      "avatar": "https://tw-mobile-xian.github.io/moments-data/images/user/avatar/003.jpeg"
-    }
-  }
-];
-
-const Section = () => {
-
-  const { handleToolBarBtnPress } = useViewModel();
-
+const Section = (props) => {
+  const { content, images, sender, comments, handleToolBarBtnPress } = useViewModel(props);
+  const imgUrl = sender?.avatar ?? DEFAULT_AVATER;
+  
   return (
     <View style={styles.root}>
       <View>
         <Image
-          source={{ uri: 'https://tw-mobile-xian.github.io/moments-data/images/user/avatar.png' }}
+          source={{ uri: imgUrl }}
           style={styles.avater}
         />
       </View>
 
       <View style={styles.container}>
-        <Text style={styles.nick}>Huan Huan</Text>
+        <Text style={styles.nick}>{`${sender?.nick ?? DEFAULT_NAME}`}</Text>
 
         {/*文本*/
-          true &&
-          <Text style={styles.text}>Unlike many proprietary big data processing platform different, Spark is built on a unified abstract RDD, making it possible to deal with different ways consistent with large data processing scenarios, including MapReduce, Streaming, SQL, Machine Learning and Graph so on. To understand the Spark, you have to understand the RDD.</Text>
+          Boolean(content) &&
+          <Text style={styles.text}>{`${content}`}</Text>
         }
 
         {/*图片*/
-          true &&
+          Boolean(images) &&
           <FlatList
             style={styles.imageList}
             numColumns={3}
-            data={mock_data}
+            data={images}
             renderItem={({ item, index }) => {
               return (
                 <View style={styles.imageWrapper}>
@@ -97,10 +68,10 @@ const Section = () => {
         }
 
         {/*评论区*/
-          true &&
+          Boolean(comments) &&
           <View style={styles.commentsWrapper}>
             <FlatList
-              data={comments_mock_data}
+              data={comments}
               renderItem={({ item, index }) => {
                 return (
                   <View>

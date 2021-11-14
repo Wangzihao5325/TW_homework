@@ -26,7 +26,6 @@ const useViewModel = () => {
   }
 
   const delErrorMoments = (unsafeMomentsJson) => {
-    //todo:网络不好的情况直接使用本地缓存
     const safeMomentsJson = unsafeMomentsJson.filter(item => {
       if (item.error) {
         return false;
@@ -43,6 +42,7 @@ const useViewModel = () => {
   }
 
   const fetchMoments = async () => {
+    //todo:网络不好的情况直接使用本地缓存
     let momentsJson = await getMoments();
     if (!momentsJson) return;
 
