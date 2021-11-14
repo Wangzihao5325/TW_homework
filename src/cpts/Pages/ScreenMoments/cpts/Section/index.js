@@ -13,17 +13,31 @@ const DEFAULT_NAME = '匿名用户';
 const DEFAULT_AVATER = 'https://tw-mobile-xian.github.io/moments-data/images/user/avatar.png';
 
 const Section = (props) => {
-  const { content, images, sender, comments, handleToolBarBtnPress } = useViewModel(props);
+  const {
+    imageConfig,
+    content,
+    images,
+    sender,
+    comments,
+    handleToolBarBtnPress,
+    handleCommentSenderAvaterPress,
+    handleCommentPress,
+    handleImagePress,
+    handleMomentSenderAvaterPress,
+  } = useViewModel(props);
   const imgUrl = sender?.avatar ?? DEFAULT_AVATER;
-  
+
   return (
     <View style={styles.root}>
-      <View>
+      <TouchableHighlight
+        underlayColor={'#fff'}
+        onPress={handleMomentSenderAvaterPress}
+      >
         <Image
           source={{ uri: imgUrl }}
           style={styles.avater}
         />
-      </View>
+      </TouchableHighlight>
 
       <View style={styles.container}>
         <Text style={styles.nick}>{`${sender?.nick ?? DEFAULT_NAME}`}</Text>
@@ -37,17 +51,21 @@ const Section = (props) => {
           Boolean(images) &&
           <FlatList
             style={styles.imageList}
-            numColumns={3}
+            numColumns={imageConfig.numColumns}
             data={images}
             renderItem={({ item, index }) => {
               return (
-                <View style={styles.imageWrapper}>
+                <TouchableHighlight
+                  style={styles.imageWrapper}
+                  onPress={handleImagePress}
+                  underlayColor={'#fff'}
+                >
                   <Image
                     key={`${item.url}_${index}`}
                     source={{ uri: item.url }}
-                    style={styles.image}
+                    style={imageConfig.imageStyle}
                   />
-                </View>
+                </TouchableHighlight>
               )
             }}
           />
@@ -76,8 +94,17 @@ const Section = (props) => {
                 return (
                   <View>
                     <Text>
-                      <Text style={styles.commentSender}>{item.sender.nick}</Text>
-                      <Text>{`:${item.content}`}</Text>
+                      <Text
+                        style={styles.commentSender}
+                        onPress={handleCommentSenderAvaterPress}
+                      >
+                        {item.sender.nick}
+                      </Text>
+                      <Text
+                        onPress={handleCommentPress}
+                      >
+                        {`:${item.content}`}
+                      </Text>
                     </Text>
                   </View>
                 );

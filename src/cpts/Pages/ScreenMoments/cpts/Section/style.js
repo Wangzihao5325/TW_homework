@@ -1,14 +1,18 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, PixelRatio } from 'react-native';
 
 const styles = StyleSheet.create({
   root: {
     display: 'flex',
     flexDirection: 'row',
-    padding: 5,
+    paddingHorizontal: 5,
+    paddingVertical: 8,
+    borderBottomWidth: 1 / PixelRatio.get(),
+    borderBottomColor: '#e0e0e0'
   },
   avater: {
     height: 50,
     width: 50,
+    borderRadius: 8
   },
   container: {
     display: 'flex',
@@ -31,11 +35,22 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   imageWrapper: {
-    paddingHorizontal: 2
+    paddingHorizontal: 2,
+    paddingVertical: 2
   },
   image: {
     height: 100,
     width: 100,
+    borderRadius: 4
+  },
+  image1: {
+    height: 200,
+    width: 200,
+    borderRadius: 4
+  },
+  image2: {
+    height: 150,
+    width: 150,
     borderRadius: 4
   },
   toolBar: {
@@ -55,12 +70,12 @@ const styles = StyleSheet.create({
   },
   commentsWrapper: {
     backgroundColor: '#e0e0e0',
-    paddingHorizontal:4,
-    borderRadius:4,
-    marginTop:6
+    paddingHorizontal: 4,
+    borderRadius: 4,
+    marginTop: 6
   },
-  commentSender:{
-    color:'#616a8b'
+  commentSender: {
+    color: '#616a8b'
   },
 });
 
