@@ -50,6 +50,7 @@ const Section = (props) => {
         {/*图片*/
           Boolean(images) &&
           <FlatList
+            listKey={'image'}
             style={styles.imageList}
             numColumns={imageConfig.numColumns}
             data={images}
@@ -90,6 +91,7 @@ const Section = (props) => {
           Boolean(comments) &&
           <View style={styles.commentsWrapper}>
             <FlatList
+              listKey={'comments'}
               data={comments}
               renderItem={({ item, index }) => {
                 return (

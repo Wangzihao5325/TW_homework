@@ -21,6 +21,7 @@ const ScreenMoments = () => {
   return (
     <SafeAreaView>
       <FlatList
+        listKey={'root'}
         ListHeaderComponent={
           <Header user={userInfo} />
         }

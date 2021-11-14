@@ -95,12 +95,15 @@ const useViewModel = () => {
   const init = async () => {
     await fetchUser();
     await fetchMoments();
-    getFiveMoreMoments();
   }
 
   useEffect(() => {
     init();
   }, [])
+
+  useEffect(() => {
+    getFiveMoreMoments()
+  }, [momentsList])
 
   return {
     userInfo,
