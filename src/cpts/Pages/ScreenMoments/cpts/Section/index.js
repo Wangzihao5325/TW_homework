@@ -59,6 +59,7 @@ const Section = (props) => {
                   style={styles.imageWrapper}
                   onPress={handleImagePress}
                   underlayColor={'#fff'}
+                  key={`${JSON.stringify(item)}_${index}`}
                 >
                   <Image
                     key={`${item.url}_${index}`}
@@ -92,7 +93,7 @@ const Section = (props) => {
               data={comments}
               renderItem={({ item, index }) => {
                 return (
-                  <View>
+                  <View key={`${JSON.stringify(item)}_${index}`}>
                     <Text>
                       <Text
                         style={styles.commentSender}

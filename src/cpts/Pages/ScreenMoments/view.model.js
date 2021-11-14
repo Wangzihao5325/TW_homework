@@ -10,6 +10,41 @@ const useViewModel = () => {
 
   const [userInfo, setUserInfo] = useState(null);
   const [momentsList, setMomentsList] = useState([]);
+  const [flatListData, setFlatListData] = useState([]);
+
+  const getFiveMoreMoments = () => {
+    if (flatListData.length >= momentsList.length) return;
+    let startIndex = flatListData.length;
+    let endindex = Math.min((flatListData.length - 1) + 5, momentsList.length - 1);
+
+    setTimeout(() => {
+      const reg = momentsList.filter((item, index) => {
+        if (index >= startIndex && index <= endindex) {
+          return true;
+        }
+        return false;
+      })
+
+      const newData = [...flatListData, ...reg];
+      setFlatListData(newData);
+    }, 500);
+  }
+
+  const updateMoments = () => {
+    let startIndex = 0;
+    let endindex = 4;
+    setTimeout(() => {
+      const reg = momentsList.filter((item, index) => {
+        if (index >= startIndex && index <= endindex) {
+          return true;
+        }
+        return false;
+      })
+
+      const newData = [...flatListData, ...reg];
+      setFlatListData(newData);
+    }, 500);
+  }
 
   const fetchUser = async () => {
     //todo:网络不好的情况直接使用本地缓存
@@ -60,6 +95,7 @@ const useViewModel = () => {
   const init = async () => {
     await fetchUser();
     await fetchMoments();
+    getFiveMoreMoments();
   }
 
   useEffect(() => {
@@ -69,6 +105,9 @@ const useViewModel = () => {
   return {
     userInfo,
     momentsList,
+    flatListData,
+    getFiveMoreMoments,
+    updateMoments,
   }
 }
 

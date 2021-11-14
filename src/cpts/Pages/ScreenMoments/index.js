@@ -11,22 +11,30 @@ import Header from './cpts/Header';
 import Section from './cpts/Section';
 
 const ScreenMoments = () => {
-  const { userInfo, momentsList } = useViewModel();
+  const {
+    userInfo,
+    flatListData,
+    getFiveMoreMoments,
+    updateMoments
+  } = useViewModel();
 
   return (
     <SafeAreaView>
-      <ScrollView>
-        <Header user={userInfo} />
-        <FlatList
-          style={styles.list}
-          data={momentsList}
-          renderItem={({ item, index }) => {
-            return (
-              <Section moment={item} key={index} />
-            );
-          }}
-        />
-      </ScrollView>
+      <FlatList
+        ListHeaderComponent={
+          <Header user={userInfo} />
+        }
+        data={flatListData}
+        onEndReachedThreshold={0.2}
+        renderItem={({ item, index }) => {
+          return (
+            <Section moment={item} key={`${JSON.stringify(item)}_${index}`} />
+          );
+        }}
+        onEndReached={() => getFiveMoreMoments()}
+        onRefresh={() => updateMoments()}
+        refreshing={false}
+      />
     </SafeAreaView>
   );
 };
