@@ -1,11 +1,7 @@
 import React from 'react';
 import {
   SafeAreaView,
-  Flatlist,
-  StatusBar,
-  Text,
-  View,
-
+  FlatList,
 } from 'react-native';
 import useViewModel from './view.model';
 import styles from './style';
@@ -13,10 +9,18 @@ import styles from './style';
 import Section from './cpts/Section';
 
 const ScreenMoments = () => {
+  const { userInfo, momentsList } = useViewModel();
 
   return (
     <SafeAreaView>
-      <Section />
+      <FlatList
+        data={momentsList}
+        renderItem={({ item, index }) => {
+          return (
+            <Section />
+          );
+        }}
+      />
     </SafeAreaView>
   );
 };
