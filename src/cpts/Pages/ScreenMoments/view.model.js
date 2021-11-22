@@ -41,7 +41,7 @@ const useViewModel = () => {
         return false;
       })
 
-      const newData = [...flatListData, ...reg];
+      const newData = [...reg];
       setFlatListData(newData);
     }, 500);
   }

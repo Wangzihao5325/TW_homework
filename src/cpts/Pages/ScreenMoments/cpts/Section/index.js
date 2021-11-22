@@ -58,7 +58,7 @@ const Section = (props) => {
               return (
                 <TouchableHighlight
                   style={styles.imageWrapper}
-                  onPress={handleImagePress}
+                  onPress={() => handleImagePress(item.url)}
                   underlayColor={'#fff'}
                   key={`${JSON.stringify(item)}_${index}`}
                 >

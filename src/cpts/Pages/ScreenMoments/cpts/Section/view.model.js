@@ -1,7 +1,11 @@
+import React, { useContext } from 'react';
 import { Alert } from 'react-native';
 import styles from './style';
+import DispatchContext from '../../../context';
+
 
 const useViewModel = (props) => {
+  const imageModalDispatch = useContext(DispatchContext);
   const { content, images, sender, comments } = props.moment;
   const imageNum = images?.length ?? 0;
 
@@ -41,8 +45,8 @@ const useViewModel = (props) => {
     Alert.alert('todo:回复评论');
   }
 
-  const handleImagePress = () => {
-    Alert.alert('todo:展开大图')
+  const handleImagePress = (url) => {
+    imageModalDispatch({ type: 'show', url })
   }
 
   const handleMomentSenderAvaterPress = () => {
